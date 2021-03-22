@@ -76,16 +76,16 @@ export default {
   },
   computed: {
     products() {
-      return this.$store.getters.products;
+      return this.$store.getters.all_products;
     },
   },
   created() {
-    this.loadProducts();
+    this.loadAllProducts();
   },
   methods: {
-    async loadProducts() {
+    async loadAllProducts() {
       try {
-        await this.$store.dispatch("loadProducts");
+        await this.$store.dispatch("loadAllProducts");
       } catch (error) {
         this.error = error.message || "Unable to Load Products";
       }

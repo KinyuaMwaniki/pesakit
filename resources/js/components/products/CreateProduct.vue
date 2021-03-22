@@ -67,16 +67,16 @@ export default {
   },
   computed: {
     suppliers() {
-      return this.$store.getters.suppliers;
+      return this.$store.getters.all_suppliers;
     },
   },
   created() {
-    this.loadSuppliers();
+    this.loadAllSuppliers();
   },
   methods: {
-    async loadSuppliers() {
+    async loadAllSuppliers() {
       try {
-        this.$store.dispatch("loadSuppliers").catch((error) => {
+        this.$store.dispatch("loadAllSuppliers").catch((error) => {
           this.error = error;
         });
       } catch (error) {

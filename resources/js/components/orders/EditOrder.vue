@@ -77,28 +77,28 @@ export default {
   },
   created() {
     this.setUpForm();
-    this.loadProducts();
+    this.loadAllProducts();
   },
   computed: {
     products() {
-      return this.$store.getters.products;
+      return this.$store.getters.all_products;
     },
   },
   methods: {
+    async loadAllProducts() {
+      try {
+        await this.$store.dispatch("loadAllProducts");
+      } catch (error) {
+        this.error = error.message || "Unable to Load Products";
+      }
+    },
     setUpForm() {
       var that = this;
-      let selected = this.$store.getters.orders.filter(function (order) {
+      let selected = this.$store.getters.all_orders.filter(function (order) {
         return order.id == that.id;
       });
       for (const product of selected[0].products) {
         this.form.order_products.push(product);
-      }
-    },
-    async loadProducts() {
-      try {
-        await this.$store.dispatch("loadProducts");
-      } catch (error) {
-        this.error = error.message || "Unable to Load Products";
       }
     },
     addProduct() {

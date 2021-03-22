@@ -14,4 +14,8 @@ class Product extends Model
     {
         return $this->belongsToMany(Supplier::class, 'supplier_products', 'product_id', 'supply_id')->select('suppliers.id', 'name');
     }
+
+    protected $casts = [
+        'quantity' => 'integer'
+    ];
 }

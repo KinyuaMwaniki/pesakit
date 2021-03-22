@@ -5,3 +5,7 @@
 header.major {
     text-align: left;
 }
+
+input[type="submit"], input[type="reset"], input[type="button"], button, .button {
+    min-width: 2em;
+}

@@ -102,7 +102,7 @@ export default {
             username: this.email,
             password: this.password,
           }).then(response => {
-            this.$router.replace('/orders');
+            this.$router.replace('/dashboard');
           });
         } else {
           await this.$store.dispatch("signup", {

@@ -18,7 +18,7 @@ class OrdersController extends Controller
     public function index()
     {
         $orders = Order::orderBy('order_number', 'DESC')->select('order_number','id')
-        ->with('products')->get();
+        ->with('products')->paginate(3);
 
         return response()->json([
             'orders' => $orders,   
@@ -123,5 +123,14 @@ class OrdersController extends Controller
         return response()->json([
             'message' => 'Deleted',   
         ], 200);
+    }
+    public function allOrders()
+    {
+        $orders = Order::orderBy('order_number', 'DESC')->select('order_number','id')
+        ->with('products')->get();
+
+        return response()->json([
+            'orders' => $orders,   
+        ], 200); 
     }
 }

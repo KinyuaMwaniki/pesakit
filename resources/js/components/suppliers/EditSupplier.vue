@@ -38,11 +38,21 @@ export default {
   },
   created() {
     this.setUpForm();
+    this.loadAllSuppliers();
   },
   methods: {
+    async loadAllSuppliers() {
+      try {
+        this.$store.dispatch("loadAllSuppliers").catch((error) => {
+          this.error = error;
+        });
+      } catch (error) {
+        this.error = error.message || "Unable to Load Suppliers";
+      }
+    },
     setUpForm() {
       var that = this;
-      let selectedSupplier = this.$store.getters.suppliers.filter(function (
+      let selectedSupplier = this.$store.getters.all_suppliers.filter(function (
         supplier
       ) {
         return supplier.id == that.id;

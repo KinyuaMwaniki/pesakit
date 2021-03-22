@@ -27,7 +27,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="product in products" :key="product.id">
+          <tr v-for="product in products.data" :key="product.id">
             <td>{{ product.name }}</td>
             <td>{{ product.description }}</td>
             <td>{{ product.quantity }}</td>
@@ -55,6 +55,10 @@
           </tr>
         </tbody>
       </table>
+      <pagination
+        :data="products"
+        @pagination-change-page="loadProducts"
+      ></pagination>
     </div>
   </div>
 </template>
@@ -78,11 +82,21 @@ export default {
   },
   created() {
     this.loadProducts();
+    this.loadAllProducts();
   },
   methods: {
-    async loadProducts() {
+    async loadProducts(page = 1) {
       try {
-        await this.$store.dispatch("loadProducts");
+        await this.$store.dispatch("loadProducts", {
+          page: page
+        });
+      } catch (error) {
+        this.error = error.message || "Unable to Load Products";
+      }
+    },
+    async loadAllProducts() {
+      try {
+        await this.$store.dispatch("loadAllProducts");
       } catch (error) {
         this.error = error.message || "Unable to Load Products";
       }

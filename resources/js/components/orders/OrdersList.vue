@@ -19,13 +19,13 @@
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Order Number</th>
+            <th>Order Number</th>
             <th>Products</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="order in orders" :key="order.name">
+          <tr v-for="order in orders.data" :key="order.name">
             <td>{{ order.order_number }}</td>
             <td>
               <ul class="list-unstyled">
@@ -51,6 +51,10 @@
           </tr>
         </tbody>
       </table>
+      <pagination
+        :data="orders"
+        @pagination-change-page="getResults"
+      ></pagination>
     </div>
   </div>
 </template>
@@ -64,6 +68,7 @@ export default {
   },
   created() {
     this.loadOrders();
+    this.loadAllOrders();
   },
   computed: {
     orders() {
@@ -71,11 +76,35 @@ export default {
     },
   },
   methods: {
-    async loadOrders() {
+    async loadOrders(page = 1) {
       try {
-        await this.$store.dispatch("loadOrders").catch((error) => {
+        await this.$store.dispatch("loadOrders", {
+          page: page
+        }).catch((error) => {
           this.error = error;
         });
+      } catch (error) {
+        this.error = error.message || "Unable to Load Suppliers";
+      }
+    },
+    async loadAllOrders() {
+      try {
+        await this.$store.dispatch("loadAllOrders").catch((error) => {
+          this.error = error;
+        });
+      } catch (error) {
+        this.error = error.message || "Unable to Load Suppliers";
+      }
+    },
+    async getResults(page = 1) {
+      try {
+        await this.$store
+          .dispatch("loadOrders", {
+            page: page,
+          })
+          .catch((error) => {
+            this.error = error;
+          });
       } catch (error) {
         this.error = error.message || "Unable to Load Suppliers";
       }
