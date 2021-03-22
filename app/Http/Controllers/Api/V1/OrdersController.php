@@ -33,12 +33,12 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
-        $latestOrder_id = Order::orderBy('created_at','DESC')->first()->id;
+        $latestOrder = Order::orderBy('created_at','DESC')->first();
         $newid = null;
-        if(is_null($latestOrder_id)) {
+        if(is_null($latestOrder)) {
             $newid = 1;
         } else {
-            $newid = $latestOrder_id + 1;
+            $newid = $latestOrder->id + 1;
         }
 
         $order_number = '#'.str_pad($newid, 8, "0", STR_PAD_LEFT);
