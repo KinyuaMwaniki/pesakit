@@ -34,6 +34,16 @@
                 v-model="form.quantity"
               />
             </div>
+            <div class="form-group">
+              <label for="">Suppliers</label>
+              <v-select
+                v-model="form.supplier_ids"
+                :reduce="(supplier) => supplier.id"
+                label="name"
+                :options="suppliers"
+                multiple
+              ></v-select>
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         </div>
@@ -53,13 +63,29 @@ export default {
         name: null,
         description: null,
         quantity: null,
+        supplier_ids: []
       },
     };
   },
+  computed: {
+    suppliers() {
+      return this.$store.getters.suppliers;
+    },
+  },
   created() {
     this.setUpForm();
+    this.loadSuppliers();
   },
   methods: {
+    async loadSuppliers() {
+      try {
+        this.$store.dispatch("loadSuppliers").catch((error) => {
+          this.error = error;
+        });
+      } catch (error) {
+        this.error = error.message || "Unable to Load Suppliers";
+      }
+    },
     setUpForm() {
       var that = this;
       let selectedProduct = this.$store.getters.products.filter(function (

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Product;
+use App\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -16,7 +17,9 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id')->select('name', 'description','quantity', 'id')->get();
+        $products = Product::orderBy('id', 'DESC')->select('name', 'description','quantity', 'id')
+        ->with('suppliers')
+        ->get();
 
         return response()->json([
             'products' => $products,   
@@ -51,6 +54,15 @@ class ProductsController extends Controller
             'description' => $request->description,
             'quantity' => $request->quantity
         ]);
+
+        $confirmed_existing_suppliers = [];
+        foreach($request->supplier_ids as $id) {
+            if (Supplier::where('id', $id)->exists()) {
+                array_push($confirmed_existing_suppliers, $id);   
+            }
+        }
+        $product->suppliers()->sync($confirmed_existing_suppliers);
+
 
         return response()->json([
             'message' => 'Saved',   
@@ -90,6 +102,14 @@ class ProductsController extends Controller
             'quantity' => $request->quantity
         ]);
 
+        $confirmed_existing_suppliers = [];
+        foreach($request->supplier_ids as $id) {
+            if (Supplier::where('id', $id)->exists()) {
+                array_push($confirmed_existing_suppliers, $id);   
+            }
+        }
+        $product->suppliers()->sync($confirmed_existing_suppliers);
+
         return response()->json([
             'message' => 'Updated',   
         ], 200); 
@@ -111,6 +131,7 @@ class ProductsController extends Controller
             ], 404);
         }
 
+        $product->suppliers()->sync([]);
         $product->delete();
 
         return response()->json([

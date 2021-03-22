@@ -22,6 +22,7 @@
             <th scope="col">Name</th>
             <th scope="col">Description</th>
             <th scope="col">Quantity</th>
+            <th scope="col">Suppliers</th>
             <th></th>
           </tr>
         </thead>
@@ -30,6 +31,13 @@
             <td>{{ product.name }}</td>
             <td>{{ product.description }}</td>
             <td>{{ product.quantity }}</td>
+            <td>
+              <ul class="list-unstyled">
+                <li v-for="supplier in product.suppliers" :key="supplier.id">
+                  {{ supplier.name }}
+                </li>
+              </ul>
+            </td>
             <td class="text-right">
               <div class="btn-group" role="group">
                 <router-link :to="'/products/edit/' + product.id"
@@ -84,9 +92,9 @@ export default {
       if (r == false) {
         return;
       }
-        this.$store
+      this.$store
         .dispatch("deleteProduct", {
-          id: product_id
+          id: product_id,
         })
         .then((_) => {
           this.loadProducts();

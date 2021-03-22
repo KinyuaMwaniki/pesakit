@@ -28,7 +28,7 @@
           <tr v-for="order in orders" :key="order.name">
             <td>{{ order.order_number }}</td>
             <td>
-              <ul>
+              <ul class="list-unstyled">
                 <li v-for="product in order.products" :key="product.id">
                   {{ product.name }}
                 </li>

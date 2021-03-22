@@ -1,8 +1,12 @@
 require("./bootstrap");
 
 window.Vue = require("vue");
-import VueRouter from "vue-router";
 
+import vSelect from 'vue-select'
+Vue.component('v-select', vSelect)
+import 'vue-select/dist/vue-select.css'
+
+import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 import App from "./App.vue";
