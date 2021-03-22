@@ -19,6 +19,22 @@
       >
       <router-link
         v-if="isLoggedIn"
+        to="/products"
+        tag="li"
+        active-class="current"
+        exact
+        ><a>Products</a></router-link
+      >
+      <router-link
+        v-if="isLoggedIn"
+        to="/suppliers"
+        tag="li"
+        active-class="current"
+        exact
+        ><a>Suppliers</a></router-link
+      >
+      <router-link
+        v-if="isLoggedIn"
         to="/logout"
         tag="li"
         active-class="current"

@@ -7,5 +7,11 @@ export default {
     },
     token(state) {
         return state.token;
+    },
+    products(state) {
+        return state.products
+    },
+    suppliers(state) {
+        return state.suppliers
     }
 }

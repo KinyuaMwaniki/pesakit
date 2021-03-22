@@ -34,7 +34,8 @@ export default {
             return;
         }
 
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.getters.token;
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + context.getters.token;
 
         let submit_method = "POST";
         let uri = "/api/logout";
@@ -64,7 +65,6 @@ export default {
         });
     },
     signup(_, payload) {
-
         let submit_method = "POST";
         let uri = "/api/register";
         let submit_data = payload;
@@ -72,7 +72,6 @@ export default {
         return new Promise((resolve, reject) => {
             axios({ method: submit_method, url: uri, data: submit_data })
                 .then(response => {
-                    console.log(response);
                     resolve(response);
                 })
                 .catch(function(error) {
@@ -90,4 +89,257 @@ export default {
                 });
         });
     },
+
+    async loadProducts(context) {
+        let submit_method = "GET";
+        let uri = "/api/v1/products";
+
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + context.getters.token;
+
+        axios({ method: submit_method, url: uri })
+            .then(response => {
+                if (response.status === 200) {
+                    context.commit("setProducts", response.data.products);
+                }
+            })
+            .catch(function(err) {
+                const error = new Error(err || "Failed to Fetch");
+                throw error;
+            });
+    },
+
+    addProduct(context, payload) {
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + context.getters.token;
+
+        let submit_method = "POST";
+        let uri = "/api/v1/products";
+        return new Promise((resolve, reject) => {
+            axios({ method: submit_method, url: uri, data: payload })
+                .then(response => {
+                    if (response.status == 200) {
+                        resolve(response);
+                    }
+                    if (response.status == 400) {
+                        reject(
+                            "Please ensure all fields are of the correct format"
+                        );
+                    }
+                })
+                .catch(function(error) {
+                    reject("Unable to Save. Please try again");
+                });
+        });
+    },
+    editProduct(context, payload) {
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + context.getters.token;
+
+        let submit_method = "PUT";
+        let uri = "/api/v1/products/" + payload.id;
+        return new Promise((resolve, reject) => {
+            axios({ method: submit_method, url: uri, data: payload })
+                .then(response => {
+                    if (response.status == 200) {
+                        resolve(response);
+                    }
+                    if (response.status == 400) {
+                        reject("Not Found");
+                    }
+                })
+                .catch(function(error) {
+                    reject("Unable to Save. Please try again");
+                });
+        });
+    },
+    deleteProduct(context, payload) {
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + context.getters.token;
+
+        let submit_method = "DELETE";
+        let uri = "/api/v1/products/" + payload.id;
+        return new Promise((resolve, reject) => {
+            axios({ method: submit_method, url: uri, data: payload })
+                .then(response => {
+                    if (response.status == 200) {
+                        resolve(response);
+                    }
+                    if (response.status == 400) {
+                        reject("Not Found");
+                    }
+                })
+                .catch(function(error) {
+                    reject("Unable to Delete. Please try again");
+                });
+        });
+    },
+    async loadSuppliers(context) {
+        let submit_method = "GET";
+        let uri = "/api/v1/suppliers";
+
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + context.getters.token;
+
+        axios({ method: submit_method, url: uri })
+            .then(response => {
+                if (response.status === 200) {
+                    context.commit("setSuppliers", response.data.suppliers);
+                }
+            })
+            .catch(function(err) {
+                const error = new Error(err || "Failed to Fetch");
+                throw error;
+            });
+    },
+    addSupplier(context, payload) {
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + context.getters.token;
+
+        let submit_method = "POST";
+        let uri = "/api/v1/suppliers";
+        return new Promise((resolve, reject) => {
+            axios({ method: submit_method, url: uri, data: payload })
+                .then(response => {
+                    if (response.status == 200) {
+                        resolve(response);
+                    }
+                    if (response.status == 400) {
+                        reject(
+                            "Please ensure all fields are of the correct format"
+                        );
+                    }
+                })
+                .catch(function(error) {
+                    reject("Unable to Save. Please try again");
+                });
+        });
+    },
+    editSupplier(context, payload) {
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + context.getters.token;
+
+        let submit_method = "PUT";
+        let uri = "/api/v1/suppliers/" + payload.id;
+        return new Promise((resolve, reject) => {
+            axios({ method: submit_method, url: uri, data: payload })
+                .then(response => {
+                    if (response.status == 200) {
+                        resolve(response);
+                    }
+                    if (response.status == 400) {
+                        reject("Not Found");
+                    }
+                })
+                .catch(function(_) {
+                    reject("Unable to Save. Please try again");
+                });
+        });
+    },
+    deleteSupplier(context, payload) {
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + context.getters.token;
+
+        let submit_method = "DELETE";
+        let uri = "/api/v1/suppliers/" + payload.id;
+        return new Promise((resolve, reject) => {
+            axios({ method: submit_method, url: uri, data: payload })
+                .then(response => {
+                    if (response.status == 200) {
+                        resolve(response);
+                    }
+                    if (response.status == 400) {
+                        reject("Not Found");
+                    }
+                })
+                .catch(function(error) {
+                    reject("Unable to Delete. Please try again");
+                });
+        });
+    },
+    async loadOrders(context) {
+        let submit_method = "GET";
+        let uri = "/api/v1/orders";
+
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + context.getters.token;
+
+        axios({ method: submit_method, url: uri })
+            .then(response => {
+                if (response.status === 200) {
+                    context.commit("setOrders", response.data.orders);
+                }
+            })
+            .catch(function(err) {
+                const error = new Error(err || "Failed to Fetch");
+                throw error;
+            });
+    },
+    createOrder(context, payload) {
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + context.getters.token;
+
+        let submit_method = "POST";
+        let uri = "/api/v1/orders";
+        return new Promise((resolve, reject) => {
+            axios({ method: submit_method, url: uri, data: payload })
+                .then(response => {
+                    if (response.status == 200) {
+                        resolve(response);
+                    }
+                    if (response.status == 400) {
+                        reject(
+                            "Please ensure all fields are of the correct format"
+                        );
+                    }
+                })
+                .catch(function(error) {
+                    reject("Unable to Save. Please try again");
+                });
+        });
+    },
+    editOrder(context, payload) {
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + context.getters.token;
+
+        let submit_method = "PUT";
+        let uri = "/api/v1/orders/" + payload.id;
+        return new Promise((resolve, reject) => {
+            axios({ method: submit_method, url: uri, data: payload })
+                .then(response => {
+                    if (response.status == 200) {
+                        resolve(response);
+                    }
+                    if (response.status == 400) {
+                        reject(
+                            "Please ensure all fields are of the correct format"
+                        );
+                    }
+                })
+                .catch(function(error) {
+                    reject("Unable to Save. Please try again");
+                });
+        });
+    },
+    deleteOrder(context, payload) {
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + context.getters.token;
+
+        let submit_method = "DELETE";
+        let uri = "/api/v1/orders/" + payload.id;
+        return new Promise((resolve, reject) => {
+            axios({ method: submit_method, url: uri, data: payload })
+                .then(response => {
+                    if (response.status == 200) {
+                        resolve(response);
+                    }
+                    if (response.status == 400) {
+                        reject("Not Found");
+                    }
+                })
+                .catch(function(error) {
+                    reject("Unable to Delete. Please try again");
+                });
+        });
+    }
 };

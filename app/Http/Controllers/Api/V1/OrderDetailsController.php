@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
+use App\OrderDetail;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class OrderDetailsController extends Controller
 {
@@ -25,7 +26,34 @@ class OrderDetailsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $current_id = OrderDetail::select('id')->first();
+
+        if(!is_null($record))
+    
+        // $record->update([
+        //     'id' => $record->id + 1,
+        // ]);
+
+        // return $record->id
+        // $rules = [
+        //     'name' => ['required'],
+        // ];
+
+        // $validator = Validator::make($request->all(), $rules);
+
+        // if($validator->fails()){
+        //     return response()->json([
+        //         'errors' => $validator->errors(), 
+        //     ], 400);
+        // }
+
+        // $supplier = Supplier::create([
+        //     'name' => $request->name,
+        // ]);
+
+        return response()->json([
+            'message' => $record,   
+        ], 200); 
     }
 
     /**

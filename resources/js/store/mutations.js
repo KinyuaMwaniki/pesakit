@@ -4,5 +4,14 @@ export default {
     },
     destroyToken(state) {
         state.token = null;
+    },
+    setProducts(state, payload) {
+        state.products = payload;
+    },
+    setSuppliers(state, payload) {
+        state.suppliers = payload;
+    },
+    setOrders(state, payload) {
+        state.orders = payload;
     }
 };

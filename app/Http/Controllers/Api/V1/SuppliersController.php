@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
+use App\Supplier;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class SuppliersController extends Controller
 {
@@ -14,7 +16,11 @@ class SuppliersController extends Controller
      */
     public function index()
     {
-        //
+        $suppliers = Supplier::orderBy('id')->select('name', 'id')->get();
+
+        return response()->json([
+            'suppliers' => $suppliers,   
+        ], 200);
     }
 
     /**
@@ -25,7 +31,25 @@ class SuppliersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'name' => ['required'],
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if($validator->fails()){
+            return response()->json([
+                'errors' => $validator->errors(), 
+            ], 400);
+        }
+
+        $supplier = Supplier::create([
+            'name' => $request->name,
+        ]);
+
+        return response()->json([
+            'message' => 'Saved',   
+        ], 200); 
     }
 
     /**
@@ -48,7 +72,21 @@ class SuppliersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $supplier = Supplier::find($id);
+
+        if (empty($supplier)) {
+            return response()->json([
+                'message' => 'Not found'
+            ], 404);
+        }
+
+        $supplier->update([
+            'name' => $request->name,
+        ]);
+
+        return response()->json([
+            'message' => 'Updated',   
+        ], 200); 
     }
 
     /**
@@ -59,6 +97,18 @@ class SuppliersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $supplier = Supplier::find($id);
+
+        if (empty($supplier)) {
+            return response()->json([
+                'message' => 'Supplier Not found'
+            ], 404);
+        }
+
+        $supplier->delete();
+
+        return response()->json([
+            'message' => 'Deleted',   
+        ], 200); 
     }
 }

@@ -8,12 +8,14 @@ Vue.use(VueRouter);
 import App from "./App.vue";
 import AlertComponent from "./components/ui/AlertComponent.vue";
 import TheHeader from "./components/ui/TheHeader.vue";
+import Loading from "./components/ui/Loading.vue";
 
 import routes from "./router.js";
 import { store } from "./store/index.js";
 
 Vue.component("alert-component", AlertComponent);
 Vue.component("the-header", TheHeader);
+Vue.component("loading", Loading);
 
 const router = new VueRouter({
     mode: "history",
