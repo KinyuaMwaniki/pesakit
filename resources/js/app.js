@@ -17,6 +17,7 @@ import Loading from "./components/ui/Loading.vue";
 import routes from "./router.js";
 import { store } from "./store/index.js";
 
+Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component("alert-component", AlertComponent);
 Vue.component("the-header", TheHeader);
 Vue.component("loading", Loading);

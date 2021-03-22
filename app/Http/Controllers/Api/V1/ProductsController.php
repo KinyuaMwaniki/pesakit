@@ -19,7 +19,7 @@ class ProductsController extends Controller
     {
         $products = Product::orderBy('id', 'DESC')->select('name', 'description','quantity', 'id')
         ->with('suppliers')
-        ->get();
+        ->paginate(3);
 
         return response()->json([
             'products' => $products,   
@@ -138,4 +138,15 @@ class ProductsController extends Controller
             'message' => 'Deleted',   
         ], 200); 
     }
+    public function allProducts()
+    {
+        $products = Product::orderBy('id', 'DESC')->select('name', 'description','quantity', 'id')
+        ->with('suppliers')
+        ->get();
+
+        return response()->json([
+            'products' => $products,   
+        ], 200); 
+    }
+  
 }

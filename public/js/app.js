@@ -2674,6 +2674,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2681,7 +2685,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   created: function created() {
-    this.loadOrders();
+    this.loadOrders(); // console.log(this.$store.getters.orders);
   },
   computed: {
     orders: function orders() {
@@ -2690,69 +2694,110 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     loadOrders: function loadOrders() {
-      var _this = this;
+      var _arguments = arguments,
+          _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var page;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return _this.$store.dispatch("loadOrders")["catch"](function (error) {
+                page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
+                _context.prev = 1;
+                _context.next = 4;
+                return _this.$store.dispatch("loadOrders", {
+                  page: page
+                })["catch"](function (error) {
                   _this.error = error;
                 });
 
-              case 3:
-                _context.next = 8;
+              case 4:
+                _context.next = 9;
                 break;
 
-              case 5:
-                _context.prev = 5;
-                _context.t0 = _context["catch"](0);
+              case 6:
+                _context.prev = 6;
+                _context.t0 = _context["catch"](1);
                 _this.error = _context.t0.message || "Unable to Load Suppliers";
 
-              case 8:
+              case 9:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 5]]);
+        }, _callee, null, [[1, 6]]);
       }))();
     },
-    deleteOrder: function deleteOrder(order_id) {
-      var _this2 = this;
+    getResults: function getResults() {
+      var _arguments2 = arguments,
+          _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var r;
+        var page;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                r = confirm("Confirm delete!");
-
-                if (!(r == false)) {
-                  _context2.next = 3;
-                  break;
-                }
-
-                return _context2.abrupt("return");
-
-              case 3:
-                _this2.$store.dispatch("deleteOrder", {
-                  id: order_id
-                }).then(function (_) {
-                  _this2.loadOrders();
+                page = _arguments2.length > 0 && _arguments2[0] !== undefined ? _arguments2[0] : 1;
+                _context2.prev = 1;
+                _context2.next = 4;
+                return _this2.$store.dispatch("loadOrders", {
+                  page: page
                 })["catch"](function (error) {
                   _this2.error = error;
                 });
 
               case 4:
+                _context2.next = 9;
+                break;
+
+              case 6:
+                _context2.prev = 6;
+                _context2.t0 = _context2["catch"](1);
+                _this2.error = _context2.t0.message || "Unable to Load Suppliers";
+
+              case 9:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, null, [[1, 6]]);
+      }))();
+    },
+    deleteOrder: function deleteOrder(order_id) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var r;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                r = confirm("Confirm delete!");
+
+                if (!(r == false)) {
+                  _context3.next = 3;
+                  break;
+                }
+
+                return _context3.abrupt("return");
+
+              case 3:
+                _this3.$store.dispatch("deleteOrder", {
+                  id: order_id
+                }).then(function (_) {
+                  _this3.loadOrders();
+                })["catch"](function (error) {
+                  _this3.error = error;
+                });
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     }
   }
@@ -2845,14 +2890,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   computed: {
     suppliers: function suppliers() {
-      return this.$store.getters.suppliers;
+      return this.$store.getters.all_suppliers;
     }
   },
   created: function created() {
-    this.loadSuppliers();
+    this.loadAllSuppliers();
   },
   methods: {
-    loadSuppliers: function loadSuppliers() {
+    loadAllSuppliers: function loadAllSuppliers() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -2861,7 +2906,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 try {
-                  _this.$store.dispatch("loadSuppliers")["catch"](function (error) {
+                  _this.$store.dispatch("loadAllSuppliers")["catch"](function (error) {
                     _this.error = error;
                   });
                 } catch (error) {
@@ -2932,6 +2977,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3008,15 +3059,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   computed: {
     suppliers: function suppliers() {
-      return this.$store.getters.suppliers;
+      return this.$store.getters.all_suppliers;
     }
   },
   created: function created() {
     this.setUpForm();
-    this.loadSuppliers();
+    this.loadAllSuppliers();
   },
   methods: {
-    loadSuppliers: function loadSuppliers() {
+    loadAllSuppliers: function loadAllSuppliers() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -3025,7 +3076,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 try {
-                  _this.$store.dispatch("loadSuppliers")["catch"](function (error) {
+                  _this.$store.dispatch("loadAllSuppliers")["catch"](function (error) {
                     _this.error = error;
                   });
                 } catch (error) {
@@ -3042,12 +3093,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     setUpForm: function setUpForm() {
       var that = this;
-      var selectedProduct = this.$store.getters.products.filter(function (product) {
+      var selectedProduct = this.$store.getters.all_products.filter(function (product) {
         return product.id == that.id;
       });
       this.form.name = selectedProduct[0].name;
       this.form.description = selectedProduct[0].description;
       this.form.quantity = selectedProduct[0].quantity;
+
+      var _iterator = _createForOfIteratorHelper(selectedProduct[0].suppliers),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var supplier = _step.value;
+          this.form.supplier_ids.push(supplier.id);
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
     },
     submitForm: function submitForm() {
       var _this2 = this;
@@ -3174,6 +3239,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3192,70 +3261,105 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   created: function created() {
     this.loadProducts();
+    this.loadAllProducts();
   },
   methods: {
     loadProducts: function loadProducts() {
-      var _this = this;
+      var _arguments = arguments,
+          _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var page;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return _this.$store.dispatch("loadProducts");
+                page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
+                _context.prev = 1;
+                _context.next = 4;
+                return _this.$store.dispatch("loadProducts", {
+                  page: page
+                });
 
-              case 3:
-                _context.next = 8;
+              case 4:
+                _context.next = 9;
                 break;
 
-              case 5:
-                _context.prev = 5;
-                _context.t0 = _context["catch"](0);
+              case 6:
+                _context.prev = 6;
+                _context.t0 = _context["catch"](1);
                 _this.error = _context.t0.message || "Unable to Load Products";
 
-              case 8:
+              case 9:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 5]]);
+        }, _callee, null, [[1, 6]]);
       }))();
     },
-    deleteProduct: function deleteProduct(product_id) {
+    loadAllProducts: function loadAllProducts() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var r;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                r = confirm("Confirm delete!");
-
-                if (!(r == false)) {
-                  _context2.next = 3;
-                  break;
-                }
-
-                return _context2.abrupt("return");
+                _context2.prev = 0;
+                _context2.next = 3;
+                return _this2.$store.dispatch("loadAllProducts");
 
               case 3:
-                _this2.$store.dispatch("deleteProduct", {
-                  id: product_id
-                }).then(function (_) {
-                  _this2.loadProducts();
-                })["catch"](function (error) {
-                  _this2.error = error;
-                });
+                _context2.next = 8;
+                break;
 
-              case 4:
+              case 5:
+                _context2.prev = 5;
+                _context2.t0 = _context2["catch"](0);
+                _this2.error = _context2.t0.message || "Unable to Load Products";
+
+              case 8:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, null, [[0, 5]]);
+      }))();
+    },
+    deleteProduct: function deleteProduct(product_id) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var r;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                r = confirm("Confirm delete!");
+
+                if (!(r == false)) {
+                  _context3.next = 3;
+                  break;
+                }
+
+                return _context3.abrupt("return");
+
+              case 3:
+                _this3.$store.dispatch("deleteProduct", {
+                  id: product_id
+                }).then(function (_) {
+                  _this3.loadProducts();
+                })["catch"](function (error) {
+                  _this3.error = error;
+                });
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     }
   }
@@ -3417,16 +3521,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   created: function created() {
     this.setUpForm();
+    this.loadAllSuppliers();
   },
   methods: {
-    setUpForm: function setUpForm() {
-      var that = this;
-      var selectedSupplier = this.$store.getters.suppliers.filter(function (supplier) {
-        return supplier.id == that.id;
-      });
-      this.form.name = selectedSupplier[0].name;
-    },
-    submitForm: function submitForm() {
+    loadAllSuppliers: function loadAllSuppliers() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -3434,31 +3532,62 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.error = null;
-
-                if (_this.validateForm()) {
-                  _context.next = 4;
-                  break;
+                try {
+                  _this.$store.dispatch("loadAllSuppliers")["catch"](function (error) {
+                    _this.error = error;
+                  });
+                } catch (error) {
+                  _this.error = error.message || "Unable to Load Suppliers";
                 }
 
-                _this.error = "Please ensure all fields are filled";
-                return _context.abrupt("return");
-
-              case 4:
-                _this.form.id = _this.id;
-
-                _this.$store.dispatch("editSupplier", _this.form).then(function (_) {
-                  _this.$router.replace("/suppliers");
-                })["catch"](function (error) {
-                  _this.error = error;
-                });
-
-              case 6:
+              case 1:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
+      }))();
+    },
+    setUpForm: function setUpForm() {
+      var that = this;
+      var selectedSupplier = this.$store.getters.all_suppliers.filter(function (supplier) {
+        return supplier.id == that.id;
+      });
+      this.form.name = selectedSupplier[0].name;
+    },
+    submitForm: function submitForm() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.error = null;
+
+                if (_this2.validateForm()) {
+                  _context2.next = 4;
+                  break;
+                }
+
+                _this2.error = "Please ensure all fields are filled";
+                return _context2.abrupt("return");
+
+              case 4:
+                _this2.form.id = _this2.id;
+
+                _this2.$store.dispatch("editSupplier", _this2.form).then(function (_) {
+                  _this2.$router.replace("/suppliers");
+                })["catch"](function (error) {
+                  _this2.error = error;
+                });
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
       }))();
     },
     validateForm: function validateForm() {
@@ -3539,6 +3668,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3557,9 +3690,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   created: function created() {
     this.loadSuppliers();
+    this.loadAllSuppliers();
   },
   methods: {
-    loadSuppliers: function loadSuppliers() {
+    loadAllSuppliers: function loadAllSuppliers() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -3568,7 +3702,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 try {
-                  _this.$store.dispatch("loadSuppliers")["catch"](function (error) {
+                  _this.$store.dispatch("loadAllSuppliers")["catch"](function (error) {
                     _this.error = error;
                   });
                 } catch (error) {
@@ -3583,39 +3717,69 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    deleteSupplier: function deleteSupplier(supplier_id) {
-      var _this2 = this;
+    loadSuppliers: function loadSuppliers() {
+      var _arguments = arguments,
+          _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var r;
+        var page;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                r = confirm("Confirm delete!");
+                page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
 
-                if (!(r == false)) {
-                  _context2.next = 3;
-                  break;
+                try {
+                  _this2.$store.dispatch("loadSuppliers", {
+                    page: page
+                  })["catch"](function (error) {
+                    _this2.error = error;
+                  });
+                } catch (error) {
+                  _this2.error = error.message || "Unable to Load Suppliers";
                 }
 
-                return _context2.abrupt("return");
-
-              case 3:
-                _this2.$store.dispatch("deleteSupplier", {
-                  id: supplier_id
-                }).then(function (_) {
-                  _this2.loadSuppliers();
-                })["catch"](function (error) {
-                  _this2.error = error;
-                });
-
-              case 4:
+              case 2:
               case "end":
                 return _context2.stop();
             }
           }
         }, _callee2);
+      }))();
+    },
+    deleteSupplier: function deleteSupplier(supplier_id) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var r;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                r = confirm("Confirm delete!");
+
+                if (!(r == false)) {
+                  _context3.next = 3;
+                  break;
+                }
+
+                return _context3.abrupt("return");
+
+              case 3:
+                _this3.$store.dispatch("deleteSupplier", {
+                  id: supplier_id
+                }).then(function (_) {
+                  _this3.loadSuppliers();
+                })["catch"](function (error) {
+                  _this3.error = error;
+                });
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     }
   }
@@ -19167,6 +19331,599 @@ if ( typeof noGlobal === "undefined" ) {
 return jQuery;
 } );
 
+
+/***/ }),
+
+/***/ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "fb15");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "f6fd":
+/***/ (function(module, exports) {
+
+// document.currentScript polyfill by Adam Miller
+
+// MIT license
+
+(function(document){
+  var currentScript = "currentScript",
+      scripts = document.getElementsByTagName('script'); // Live NodeList collection
+
+  // If browser needs currentScript polyfill, add get currentScript() to the document object
+  if (!(currentScript in document)) {
+    Object.defineProperty(document, currentScript, {
+      get: function(){
+
+        // IE 6-10 supports script readyState
+        // IE 10+ support stack trace
+        try { throw new Error(); }
+        catch (err) {
+
+          // Find the second match for the "at" string to get file src url from stack.
+          // Specifically works with the format of stack traces in IE.
+          var i, res = ((/.*at [^\(]*\((.*):.+:.+\)$/ig).exec(err.stack) || [false])[1];
+
+          // For all scripts on the page, if src matches or if ready state is interactive, return the script tag
+          for(i in scripts){
+            if(scripts[i].src == res || scripts[i].readyState == "interactive"){
+              return scripts[i];
+            }
+          }
+
+          // If no match, return null
+          return null;
+        }
+      }
+    });
+  }
+})(document);
+
+
+/***/ }),
+
+/***/ "fb15":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
+// This file is imported into lib/wc client bundles.
+
+if (typeof window !== 'undefined') {
+  if (true) {
+    __webpack_require__("f6fd")
+  }
+
+  var i
+  if ((i = window.document.currentScript) && (i = i.src.match(/(.+\/)[^/]+\.js(\?.*)?$/))) {
+    __webpack_require__.p = i[1] // eslint-disable-line
+  }
+}
+
+// Indicate to webpack that this file can be concatenated
+/* harmony default export */ var setPublicPath = (null);
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"604a59b1-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/LaravelVuePagination.vue?vue&type=template&id=7f71b5a7&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('renderless-laravel-vue-pagination',{attrs:{"data":_vm.data,"limit":_vm.limit,"show-disabled":_vm.showDisabled,"size":_vm.size,"align":_vm.align},on:{"pagination-change-page":_vm.onPaginationChangePage},scopedSlots:_vm._u([{key:"default",fn:function(ref){
+var data = ref.data;
+var limit = ref.limit;
+var showDisabled = ref.showDisabled;
+var size = ref.size;
+var align = ref.align;
+var computed = ref.computed;
+var prevButtonEvents = ref.prevButtonEvents;
+var nextButtonEvents = ref.nextButtonEvents;
+var pageButtonEvents = ref.pageButtonEvents;
+return (computed.total > computed.perPage)?_c('ul',{staticClass:"pagination",class:{
+            'pagination-sm': size == 'small',
+            'pagination-lg': size == 'large',
+            'justify-content-center': align == 'center',
+            'justify-content-end': align == 'right'
+        }},[(computed.prevPageUrl || showDisabled)?_c('li',{staticClass:"page-item pagination-prev-nav",class:{'disabled': !computed.prevPageUrl}},[_c('a',_vm._g({staticClass:"page-link",attrs:{"href":"#","aria-label":"Previous","tabindex":!computed.prevPageUrl && -1}},prevButtonEvents),[_vm._t("prev-nav",[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("«")]),_c('span',{staticClass:"sr-only"},[_vm._v("Previous")])])],2)]):_vm._e(),_vm._l((computed.pageRange),function(page,key){return _c('li',{key:key,staticClass:"page-item pagination-page-nav",class:{ 'active': page == computed.currentPage }},[_c('a',_vm._g({staticClass:"page-link",attrs:{"href":"#"}},pageButtonEvents(page)),[_vm._v("\n                "+_vm._s(page)+"\n                "),(page == computed.currentPage)?_c('span',{staticClass:"sr-only"},[_vm._v("(current)")]):_vm._e()])])}),(computed.nextPageUrl || showDisabled)?_c('li',{staticClass:"page-item pagination-next-nav",class:{'disabled': !computed.nextPageUrl}},[_c('a',_vm._g({staticClass:"page-link",attrs:{"href":"#","aria-label":"Next","tabindex":!computed.nextPageUrl && -1}},nextButtonEvents),[_vm._t("next-nav",[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("»")]),_c('span',{staticClass:"sr-only"},[_vm._v("Next")])])],2)]):_vm._e()],2):_vm._e()}}],null,true)})}
+var staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/LaravelVuePagination.vue?vue&type=template&id=7f71b5a7&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/RenderlessLaravelVuePagination.vue?vue&type=script&lang=js&
+/* harmony default export */ var RenderlessLaravelVuePaginationvue_type_script_lang_js_ = ({
+  props: {
+    data: {
+      type: Object,
+      default: function _default() {}
+    },
+    limit: {
+      type: Number,
+      default: 0
+    },
+    showDisabled: {
+      type: Boolean,
+      default: false
+    },
+    size: {
+      type: String,
+      default: 'default',
+      validator: function validator(value) {
+        return ['small', 'default', 'large'].indexOf(value) !== -1;
+      }
+    },
+    align: {
+      type: String,
+      default: 'left',
+      validator: function validator(value) {
+        return ['left', 'center', 'right'].indexOf(value) !== -1;
+      }
+    }
+  },
+  computed: {
+    isApiResource: function isApiResource() {
+      return !!this.data.meta;
+    },
+    currentPage: function currentPage() {
+      return this.isApiResource ? this.data.meta.current_page : this.data.current_page;
+    },
+    firstPageUrl: function firstPageUrl() {
+      return this.isApiResource ? this.data.links.first : null;
+    },
+    from: function from() {
+      return this.isApiResource ? this.data.meta.from : this.data.from;
+    },
+    lastPage: function lastPage() {
+      return this.isApiResource ? this.data.meta.last_page : this.data.last_page;
+    },
+    lastPageUrl: function lastPageUrl() {
+      return this.isApiResource ? this.data.links.last : null;
+    },
+    nextPageUrl: function nextPageUrl() {
+      return this.isApiResource ? this.data.links.next : this.data.next_page_url;
+    },
+    perPage: function perPage() {
+      return this.isApiResource ? this.data.meta.per_page : this.data.per_page;
+    },
+    prevPageUrl: function prevPageUrl() {
+      return this.isApiResource ? this.data.links.prev : this.data.prev_page_url;
+    },
+    to: function to() {
+      return this.isApiResource ? this.data.meta.to : this.data.to;
+    },
+    total: function total() {
+      return this.isApiResource ? this.data.meta.total : this.data.total;
+    },
+    pageRange: function pageRange() {
+      if (this.limit === -1) {
+        return 0;
+      }
+
+      if (this.limit === 0) {
+        return this.lastPage;
+      }
+
+      var current = this.currentPage;
+      var last = this.lastPage;
+      var delta = this.limit;
+      var left = current - delta;
+      var right = current + delta + 1;
+      var range = [];
+      var pages = [];
+      var l;
+
+      for (var i = 1; i <= last; i++) {
+        if (i === 1 || i === last || i >= left && i < right) {
+          range.push(i);
+        }
+      }
+
+      range.forEach(function (i) {
+        if (l) {
+          if (i - l === 2) {
+            pages.push(l + 1);
+          } else if (i - l !== 1) {
+            pages.push('...');
+          }
+        }
+
+        pages.push(i);
+        l = i;
+      });
+      return pages;
+    }
+  },
+  methods: {
+    previousPage: function previousPage() {
+      this.selectPage(this.currentPage - 1);
+    },
+    nextPage: function nextPage() {
+      this.selectPage(this.currentPage + 1);
+    },
+    selectPage: function selectPage(page) {
+      if (page === '...') {
+        return;
+      }
+
+      this.$emit('pagination-change-page', page);
+    }
+  },
+  render: function render() {
+    var _this = this;
+
+    return this.$scopedSlots.default({
+      data: this.data,
+      limit: this.limit,
+      showDisabled: this.showDisabled,
+      size: this.size,
+      align: this.align,
+      computed: {
+        isApiResource: this.isApiResource,
+        currentPage: this.currentPage,
+        firstPageUrl: this.firstPageUrl,
+        from: this.from,
+        lastPage: this.lastPage,
+        lastPageUrl: this.lastPageUrl,
+        nextPageUrl: this.nextPageUrl,
+        perPage: this.perPage,
+        prevPageUrl: this.prevPageUrl,
+        to: this.to,
+        total: this.total,
+        pageRange: this.pageRange
+      },
+      prevButtonEvents: {
+        click: function click(e) {
+          e.preventDefault();
+
+          _this.previousPage();
+        }
+      },
+      nextButtonEvents: {
+        click: function click(e) {
+          e.preventDefault();
+
+          _this.nextPage();
+        }
+      },
+      pageButtonEvents: function pageButtonEvents(page) {
+        return {
+          click: function click(e) {
+            e.preventDefault();
+
+            _this.selectPage(page);
+          }
+        };
+      }
+    });
+  }
+});
+// CONCATENATED MODULE: ./src/RenderlessLaravelVuePagination.vue?vue&type=script&lang=js&
+ /* harmony default export */ var src_RenderlessLaravelVuePaginationvue_type_script_lang_js_ = (RenderlessLaravelVuePaginationvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+// CONCATENATED MODULE: ./src/RenderlessLaravelVuePagination.vue
+var RenderlessLaravelVuePagination_render, RenderlessLaravelVuePagination_staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = normalizeComponent(
+  src_RenderlessLaravelVuePaginationvue_type_script_lang_js_,
+  RenderlessLaravelVuePagination_render,
+  RenderlessLaravelVuePagination_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ var RenderlessLaravelVuePagination = (component.exports);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/LaravelVuePagination.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ var LaravelVuePaginationvue_type_script_lang_js_ = ({
+  props: {
+    data: {
+      type: Object,
+      default: function _default() {}
+    },
+    limit: {
+      type: Number,
+      default: 0
+    },
+    showDisabled: {
+      type: Boolean,
+      default: false
+    },
+    size: {
+      type: String,
+      default: 'default',
+      validator: function validator(value) {
+        return ['small', 'default', 'large'].indexOf(value) !== -1;
+      }
+    },
+    align: {
+      type: String,
+      default: 'left',
+      validator: function validator(value) {
+        return ['left', 'center', 'right'].indexOf(value) !== -1;
+      }
+    }
+  },
+  methods: {
+    onPaginationChangePage: function onPaginationChangePage(page) {
+      this.$emit('pagination-change-page', page);
+    }
+  },
+  components: {
+    RenderlessLaravelVuePagination: RenderlessLaravelVuePagination
+  }
+});
+// CONCATENATED MODULE: ./src/LaravelVuePagination.vue?vue&type=script&lang=js&
+ /* harmony default export */ var src_LaravelVuePaginationvue_type_script_lang_js_ = (LaravelVuePaginationvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/LaravelVuePagination.vue
+
+
+
+
+
+/* normalize component */
+
+var LaravelVuePagination_component = normalizeComponent(
+  src_LaravelVuePaginationvue_type_script_lang_js_,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ var LaravelVuePagination = (LaravelVuePagination_component.exports);
+// CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
+
+
+/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (LaravelVuePagination);
+
+
+
+/***/ })
+
+/******/ })["default"];
+//# sourceMappingURL=laravel-vue-pagination.common.js.map
 
 /***/ }),
 
@@ -41397,97 +42154,107 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row gtr-200" }, [
-    _c("div", { staticClass: "col-sm-8 offset-sm-2 col-12-narrower" }, [
-      _c("header", { staticClass: "major" }, [
-        _c("div", { staticClass: "row" }, [
-          _vm._m(0),
+    _c(
+      "div",
+      { staticClass: "col-sm-8 offset-sm-2 col-12-narrower" },
+      [
+        _c("header", { staticClass: "major" }, [
+          _c("div", { staticClass: "row" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-sm-1" },
+              [_vm.isLoading ? _c("loading") : _vm._e()],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-sm-6 text-right" },
+              [
+                _c("router-link", { attrs: { to: "/orders/create" } }, [
+                  _c("a", { staticClass: "btn btn-primary btn-sm" }, [
+                    _vm._v("Create")
+                  ])
+                ])
+              ],
+              1
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("table", { staticClass: "table" }, [
+          _vm._m(1),
           _vm._v(" "),
           _c(
-            "div",
-            { staticClass: "col-sm-1" },
-            [_vm.isLoading ? _c("loading") : _vm._e()],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-sm-6 text-right" },
-            [
-              _c("router-link", { attrs: { to: "/orders/create" } }, [
-                _c("a", { staticClass: "btn btn-primary btn-sm" }, [
-                  _vm._v("Create")
+            "tbody",
+            _vm._l(_vm.orders.data, function(order) {
+              return _c("tr", { key: order.name }, [
+                _c("td", [_vm._v(_vm._s(order.order_number))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "ul",
+                    { staticClass: "list-unstyled" },
+                    _vm._l(order.products, function(product) {
+                      return _c("li", { key: product.id }, [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(product.name) +
+                            "\n              "
+                        )
+                      ])
+                    }),
+                    0
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "div",
+                    { staticClass: "btn-group", attrs: { role: "group" } },
+                    [
+                      _c(
+                        "router-link",
+                        { attrs: { to: "/orders/edit/" + order.id } },
+                        [
+                          _c("a", { staticClass: "btn btn-primary btn-sm" }, [
+                            _vm._v("Edit")
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-sm",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteOrder(order.id)
+                            }
+                          }
+                        },
+                        [_vm._v("\n                Delete\n              ")]
+                      )
+                    ],
+                    1
+                  )
                 ])
               ])
-            ],
-            1
+            }),
+            0
           )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("table", { staticClass: "table" }, [
-        _vm._m(1),
+        ]),
         _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.orders, function(order) {
-            return _c("tr", { key: order.name }, [
-              _c("td", [_vm._v(_vm._s(order.order_number))]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "ul",
-                  { staticClass: "list-unstyled" },
-                  _vm._l(order.products, function(product) {
-                    return _c("li", { key: product.id }, [
-                      _vm._v(
-                        "\n                " +
-                          _vm._s(product.name) +
-                          "\n              "
-                      )
-                    ])
-                  }),
-                  0
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "div",
-                  { staticClass: "btn-group", attrs: { role: "group" } },
-                  [
-                    _c(
-                      "router-link",
-                      { attrs: { to: "/orders/edit/" + order.id } },
-                      [
-                        _c("a", { staticClass: "btn btn-primary btn-sm" }, [
-                          _vm._v("Edit")
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger btn-sm",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteOrder(order.id)
-                          }
-                        }
-                      },
-                      [_vm._v("\n                Delete\n              ")]
-                    )
-                  ],
-                  1
-                )
-              ])
-            ])
-          }),
-          0
-        )
-      ])
-    ])
+        _c("pagination", {
+          attrs: { data: _vm.orders },
+          on: { "pagination-change-page": _vm.getResults }
+        })
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = [
@@ -41505,7 +42272,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Order Number")]),
+        _c("th", [_vm._v("Order Number")]),
         _vm._v(" "),
         _c("th", [_vm._v("Products")]),
         _vm._v(" "),
@@ -41882,101 +42649,111 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row gtr-200" }, [
-    _c("div", { staticClass: "col-sm-8 offset-sm-2 col-12-narrower" }, [
-      _c("header", { staticClass: "major" }, [
-        _c("div", { staticClass: "row" }, [
-          _vm._m(0),
+    _c(
+      "div",
+      { staticClass: "col-sm-8 offset-sm-2 col-12-narrower" },
+      [
+        _c("header", { staticClass: "major" }, [
+          _c("div", { staticClass: "row" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-sm-1" },
+              [_vm.isLoading ? _c("loading") : _vm._e()],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-sm-6 text-right" },
+              [
+                _c("router-link", { attrs: { to: "/products/create" } }, [
+                  _c("a", { staticClass: "btn btn-primary btn-sm" }, [
+                    _vm._v("Create")
+                  ])
+                ])
+              ],
+              1
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("table", { staticClass: "table" }, [
+          _vm._m(1),
           _vm._v(" "),
           _c(
-            "div",
-            { staticClass: "col-sm-1" },
-            [_vm.isLoading ? _c("loading") : _vm._e()],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-sm-6 text-right" },
-            [
-              _c("router-link", { attrs: { to: "/products/create" } }, [
-                _c("a", { staticClass: "btn btn-primary btn-sm" }, [
-                  _vm._v("Create")
+            "tbody",
+            _vm._l(_vm.products.data, function(product) {
+              return _c("tr", { key: product.id }, [
+                _c("td", [_vm._v(_vm._s(product.name))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(product.description))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(product.quantity))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "ul",
+                    { staticClass: "list-unstyled" },
+                    _vm._l(product.suppliers, function(supplier) {
+                      return _c("li", { key: supplier.id }, [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(supplier.name) +
+                            "\n              "
+                        )
+                      ])
+                    }),
+                    0
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-right" }, [
+                  _c(
+                    "div",
+                    { staticClass: "btn-group", attrs: { role: "group" } },
+                    [
+                      _c(
+                        "router-link",
+                        { attrs: { to: "/products/edit/" + product.id } },
+                        [
+                          _c("a", { staticClass: "btn btn-primary btn-sm" }, [
+                            _vm._v("Edit")
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-sm",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteProduct(product.id)
+                            }
+                          }
+                        },
+                        [_vm._v("\n                Delete\n              ")]
+                      )
+                    ],
+                    1
+                  )
                 ])
               ])
-            ],
-            1
+            }),
+            0
           )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("table", { staticClass: "table" }, [
-        _vm._m(1),
+        ]),
         _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.products, function(product) {
-            return _c("tr", { key: product.id }, [
-              _c("td", [_vm._v(_vm._s(product.name))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(product.description))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(product.quantity))]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "ul",
-                  { staticClass: "list-unstyled" },
-                  _vm._l(product.suppliers, function(supplier) {
-                    return _c("li", { key: supplier.id }, [
-                      _vm._v(
-                        "\n                " +
-                          _vm._s(supplier.name) +
-                          "\n              "
-                      )
-                    ])
-                  }),
-                  0
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-right" }, [
-                _c(
-                  "div",
-                  { staticClass: "btn-group", attrs: { role: "group" } },
-                  [
-                    _c(
-                      "router-link",
-                      { attrs: { to: "/products/edit/" + product.id } },
-                      [
-                        _c("a", { staticClass: "btn btn-primary btn-sm" }, [
-                          _vm._v("Edit")
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger btn-sm",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteProduct(product.id)
-                          }
-                        }
-                      },
-                      [_vm._v("\n                Delete\n              ")]
-                    )
-                  ],
-                  1
-                )
-              ])
-            ])
-          }),
-          0
-        )
-      ])
-    ])
+        _c("pagination", {
+          attrs: { data: _vm.products },
+          on: { "pagination-change-page": _vm.loadProducts }
+        })
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = [
@@ -42209,80 +42986,90 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row gtr-200" }, [
-    _c("div", { staticClass: "col-sm-8 offset-sm-2 col-12-narrower" }, [
-      _c("header", { staticClass: "major" }, [
-        _c("div", { staticClass: "row" }, [
-          _vm._m(0),
+    _c(
+      "div",
+      { staticClass: "col-sm-8 offset-sm-2 col-12-narrower" },
+      [
+        _c("header", { staticClass: "major" }, [
+          _c("div", { staticClass: "row" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-sm-1" },
+              [_vm.isLoading ? _c("loading") : _vm._e()],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-sm-6 text-right" },
+              [
+                _c("router-link", { attrs: { to: "/suppliers/create" } }, [
+                  _c("a", { staticClass: "btn btn-primary btn-sm" }, [
+                    _vm._v("Create")
+                  ])
+                ])
+              ],
+              1
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("table", { staticClass: "table" }, [
+          _vm._m(1),
           _vm._v(" "),
           _c(
-            "div",
-            { staticClass: "col-sm-1" },
-            [_vm.isLoading ? _c("loading") : _vm._e()],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-sm-6 text-right" },
-            [
-              _c("router-link", { attrs: { to: "/suppliers/create" } }, [
-                _c("a", { staticClass: "btn btn-primary btn-sm" }, [
-                  _vm._v("Create")
+            "tbody",
+            _vm._l(_vm.suppliers.data, function(supplier) {
+              return _c("tr", { key: supplier.id }, [
+                _c("td", [_vm._v(_vm._s(supplier.name))]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-right" }, [
+                  _c(
+                    "div",
+                    { staticClass: "btn-group", attrs: { role: "group" } },
+                    [
+                      _c(
+                        "router-link",
+                        { attrs: { to: "/suppliers/edit/" + supplier.id } },
+                        [
+                          _c("a", { staticClass: "btn btn-primary btn-sm" }, [
+                            _vm._v("Edit")
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-sm",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteSupplier(supplier.id)
+                            }
+                          }
+                        },
+                        [_vm._v("\n                Delete\n              ")]
+                      )
+                    ],
+                    1
+                  )
                 ])
               ])
-            ],
-            1
+            }),
+            0
           )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("table", { staticClass: "table" }, [
-        _vm._m(1),
+        ]),
         _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.suppliers, function(supplier) {
-            return _c("tr", { key: supplier.id }, [
-              _c("td", [_vm._v(_vm._s(supplier.name))]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-right" }, [
-                _c(
-                  "div",
-                  { staticClass: "btn-group", attrs: { role: "group" } },
-                  [
-                    _c(
-                      "router-link",
-                      { attrs: { to: "/suppliers/edit/" + supplier.id } },
-                      [
-                        _c("a", { staticClass: "btn btn-primary btn-sm" }, [
-                          _vm._v("Edit")
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger btn-sm",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteSupplier(supplier.id)
-                          }
-                        }
-                      },
-                      [_vm._v("\n                Delete\n              ")]
-                    )
-                  ],
-                  1
-                )
-              ])
-            ])
-          }),
-          0
-        )
-      ])
-    ])
+        _c("pagination", {
+          attrs: { data: _vm.suppliers },
+          on: { "pagination-change-page": _vm.loadSuppliers }
+        })
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = [
@@ -59191,6 +59978,7 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
 
 
 
+Vue.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
 Vue.component("alert-component", _components_ui_AlertComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
 Vue.component("the-header", _components_ui_TheHeader_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
 Vue.component("loading", _components_ui_Loading_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
@@ -60460,7 +61248,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     });
   },
-  loadProducts: function loadProducts(context) {
+  loadProducts: function loadProducts(context, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       var submit_method, uri;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -60468,7 +61256,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context.prev = _context.next) {
             case 0:
               submit_method = "GET";
-              uri = "/api/v1/products";
+              uri = "/api/v1/products?page=" + payload.page;
               axios.defaults.headers.common["Authorization"] = "Bearer " + context.getters.token;
               axios({
                 method: submit_method,
@@ -60488,6 +61276,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }
       }, _callee);
+    }))();
+  },
+  loadAllProducts: function loadAllProducts(context) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var submit_method, uri;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              submit_method = "GET";
+              uri = "/api/v1/all-products";
+              axios.defaults.headers.common["Authorization"] = "Bearer " + context.getters.token;
+              axios({
+                method: submit_method,
+                url: uri
+              }).then(function (response) {
+                if (response.status === 200) {
+                  context.commit("setAllProducts", response.data.products);
+                }
+              })["catch"](function (err) {
+                var error = new Error(err || "Failed to Fetch");
+                throw error;
+              });
+
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
     }))();
   },
   addProduct: function addProduct(context, payload) {
@@ -60556,15 +61374,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     });
   },
-  loadSuppliers: function loadSuppliers(context) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+  loadSuppliers: function loadSuppliers(context, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
       var submit_method, uri;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
               submit_method = "GET";
-              uri = "/api/v1/suppliers";
+              uri = "/api/v1/suppliers?page=" + payload.page;
               axios.defaults.headers.common["Authorization"] = "Bearer " + context.getters.token;
               axios({
                 method: submit_method,
@@ -60580,10 +61398,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 4:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2);
+      }, _callee3);
+    }))();
+  },
+  loadAllSuppliers: function loadAllSuppliers(context) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      var submit_method, uri;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              submit_method = "GET";
+              uri = "/api/v1/all-suppliers";
+              axios.defaults.headers.common["Authorization"] = "Bearer " + context.getters.token;
+              axios({
+                method: submit_method,
+                url: uri
+              }).then(function (response) {
+                if (response.status === 200) {
+                  context.commit("setAllSuppliers", response.data.suppliers);
+                }
+              })["catch"](function (err) {
+                var error = new Error(err || "Failed to Fetch");
+                throw error;
+              });
+
+            case 4:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
     }))();
   },
   addSupplier: function addSupplier(context, payload) {
@@ -60652,15 +61500,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     });
   },
-  loadOrders: function loadOrders(context) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+  loadOrders: function loadOrders(context, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
       var submit_method, uri;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
               submit_method = "GET";
-              uri = "/api/v1/orders";
+              uri = "/api/v1/orders?page=" + payload.page;
               axios.defaults.headers.common["Authorization"] = "Bearer " + context.getters.token;
               axios({
                 method: submit_method,
@@ -60676,10 +61524,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 4:
             case "end":
-              return _context3.stop();
+              return _context5.stop();
           }
         }
-      }, _callee3);
+      }, _callee5);
     }))();
   },
   createOrder: function createOrder(context, payload) {
@@ -60774,8 +61622,14 @@ __webpack_require__.r(__webpack_exports__);
   products: function products(state) {
     return state.products;
   },
+  all_products: function all_products(state) {
+    return state.all_products;
+  },
   suppliers: function suppliers(state) {
     return state.suppliers;
+  },
+  all_suppliers: function all_suppliers(state) {
+    return state.all_suppliers;
   }
 });
 
@@ -60809,7 +61663,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       token: localStorage.getItem("access_token") || null,
       orders: {},
       products: {},
-      suppliers: []
+      suppliers: {},
+      all_suppliers: [],
+      all_products: []
     };
   },
   mutations: _mutations_js__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -60838,8 +61694,14 @@ __webpack_require__.r(__webpack_exports__);
   setProducts: function setProducts(state, payload) {
     state.products = payload;
   },
+  setAllProducts: function setAllProducts(state, payload) {
+    state.all_products = payload;
+  },
   setSuppliers: function setSuppliers(state, payload) {
     state.suppliers = payload;
+  },
+  setAllSuppliers: function setAllSuppliers(state, payload) {
+    state.all_suppliers = payload;
   },
   setOrders: function setOrders(state, payload) {
     state.orders = payload;

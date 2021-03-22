@@ -16,7 +16,7 @@ class SuppliersController extends Controller
      */
     public function index()
     {
-        $suppliers = Supplier::orderBy('id')->select('name', 'id')->get();
+        $suppliers = Supplier::orderBy('id')->select('name', 'id')->paginate(3);
 
         return response()->json([
             'suppliers' => $suppliers,   
@@ -110,5 +110,13 @@ class SuppliersController extends Controller
         return response()->json([
             'message' => 'Deleted',   
         ], 200); 
+    }
+    public function allSuppliers()
+    {
+        $suppliers = Supplier::orderBy('id')->select('name', 'id')->get();
+
+        return response()->json([
+            'suppliers' => $suppliers,   
+        ], 200);
     }
 }

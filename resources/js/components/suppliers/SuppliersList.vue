@@ -24,7 +24,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="supplier in suppliers" :key="supplier.id">
+          <tr v-for="supplier in suppliers.data" :key="supplier.id">
             <td>{{ supplier.name }}</td>
             <td class="text-right">
               <div class="btn-group" role="group">
@@ -43,6 +43,10 @@
           </tr>
         </tbody>
       </table>
+      <pagination
+        :data="suppliers"
+        @pagination-change-page="loadSuppliers"
+      ></pagination>
     </div>
   </div>
 </template>
@@ -66,12 +70,24 @@ export default {
   },
   created() {
     this.loadSuppliers();
+    this.loadAllSuppliers();
   },
   methods: {
-    async loadSuppliers() {
+    async loadAllSuppliers() {
+      try {
+        this.$store.dispatch("loadAllSuppliers").catch((error) => {
+          this.error = error;
+        });
+      } catch (error) {
+        this.error = error.message || "Unable to Load Suppliers";
+      }
+    },
+    async loadSuppliers(page = 1) {
       try {
         this.$store
-          .dispatch("loadSuppliers")
+          .dispatch("loadSuppliers", {
+            page: page,
+          })
           .catch((error) => {
             this.error = error;
           });

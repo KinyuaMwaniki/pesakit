@@ -90,9 +90,9 @@ export default {
         });
     },
 
-    async loadProducts(context) {
+    async loadProducts(context, payload) {
         let submit_method = "GET";
-        let uri = "/api/v1/products";
+        let uri = "/api/v1/products?page=" + payload.page;
 
         axios.defaults.headers.common["Authorization"] =
             "Bearer " + context.getters.token;
@@ -101,6 +101,25 @@ export default {
             .then(response => {
                 if (response.status === 200) {
                     context.commit("setProducts", response.data.products);
+                }
+            })
+            .catch(function(err) {
+                const error = new Error(err || "Failed to Fetch");
+                throw error;
+            });
+    },
+
+    async loadAllProducts(context) {
+        let submit_method = "GET";
+        let uri = "/api/v1/all-products";
+
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + context.getters.token;
+
+        axios({ method: submit_method, url: uri })
+            .then(response => {
+                if (response.status === 200) {
+                    context.commit("setAllProducts", response.data.products);
                 }
             })
             .catch(function(err) {
@@ -174,9 +193,9 @@ export default {
                 });
         });
     },
-    async loadSuppliers(context) {
+    async loadSuppliers(context, payload) {
         let submit_method = "GET";
-        let uri = "/api/v1/suppliers";
+        let uri = "/api/v1/suppliers?page=" + payload.page;
 
         axios.defaults.headers.common["Authorization"] =
             "Bearer " + context.getters.token;
@@ -185,6 +204,24 @@ export default {
             .then(response => {
                 if (response.status === 200) {
                     context.commit("setSuppliers", response.data.suppliers);
+                }
+            })
+            .catch(function(err) {
+                const error = new Error(err || "Failed to Fetch");
+                throw error;
+            });
+    },
+    async loadAllSuppliers(context) {
+        let submit_method = "GET";
+        let uri = "/api/v1/all-suppliers";
+
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + context.getters.token;
+
+        axios({ method: submit_method, url: uri })
+            .then(response => {
+                if (response.status === 200) {
+                    context.commit("setAllSuppliers", response.data.suppliers);
                 }
             })
             .catch(function(err) {
@@ -257,9 +294,9 @@ export default {
                 });
         });
     },
-    async loadOrders(context) {
+    async loadOrders(context, payload) {
         let submit_method = "GET";
-        let uri = "/api/v1/orders";
+        let uri = "/api/v1/orders?page=" + payload.page;
 
         axios.defaults.headers.common["Authorization"] =
             "Bearer " + context.getters.token;

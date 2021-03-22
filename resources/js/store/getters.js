@@ -9,9 +9,15 @@ export default {
         return state.token;
     },
     products(state) {
-        return state.products
+        return state.products;
+    },
+    all_products(state) {
+        return state.all_products;
     },
     suppliers(state) {
-        return state.suppliers
+        return state.suppliers;
+    },
+    all_suppliers(state) {
+        return state.all_suppliers;
     }
-}
+};

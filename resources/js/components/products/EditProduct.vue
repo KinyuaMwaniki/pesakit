@@ -63,23 +63,23 @@ export default {
         name: null,
         description: null,
         quantity: null,
-        supplier_ids: []
+        supplier_ids: [],
       },
     };
   },
   computed: {
     suppliers() {
-      return this.$store.getters.suppliers;
+      return this.$store.getters.all_suppliers;
     },
   },
   created() {
     this.setUpForm();
-    this.loadSuppliers();
+    this.loadAllSuppliers();
   },
   methods: {
-    async loadSuppliers() {
+    async loadAllSuppliers() {
       try {
-        this.$store.dispatch("loadSuppliers").catch((error) => {
+        this.$store.dispatch("loadAllSuppliers").catch((error) => {
           this.error = error;
         });
       } catch (error) {
@@ -88,7 +88,7 @@ export default {
     },
     setUpForm() {
       var that = this;
-      let selectedProduct = this.$store.getters.products.filter(function (
+      let selectedProduct = this.$store.getters.all_products.filter(function (
         product
       ) {
         return product.id == that.id;
@@ -97,6 +97,10 @@ export default {
       this.form.name = selectedProduct[0].name;
       this.form.description = selectedProduct[0].description;
       this.form.quantity = selectedProduct[0].quantity;
+
+      for (const supplier of selectedProduct[0].suppliers) {
+        this.form.supplier_ids.push(supplier.id)
+      }
     },
     async submitForm() {
       this.error = null;
