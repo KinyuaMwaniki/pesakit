@@ -4,13 +4,13 @@
       <header class="major">
         <div class="row">
           <div class="col-sm-5">
-            <h2>All Orders</h2>
+            <h2>All Suppliers</h2>
           </div>
           <div class="col-sm-1">
             <loading v-if="isLoading"></loading>
           </div>
           <div class="col-sm-6 text-right">
-            <router-link to="/orders/create"
+            <router-link to="/suppliers/create"
               ><a class="btn btn-primary btn-sm">Create</a></router-link
             >
           </div>
@@ -19,29 +19,21 @@
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Order Number</th>
-            <th>Products</th>
+            <th scope="col">Name</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="order in orders" :key="order.name">
-            <td>{{ order.order_number }}</td>
-            <td>
-              <ul class="list-unstyled">
-                <li v-for="product in order.products" :key="product.id">
-                  {{ product.name }}
-                </li>
-              </ul>
-            </td>
-            <td>
+          <tr v-for="supplier in suppliers" :key="supplier.id">
+            <td>{{ supplier.name }}</td>
+            <td class="text-right">
               <div class="btn-group" role="group">
-                <router-link :to="'/orders/edit/' + order.id"
+                <router-link :to="'/suppliers/edit/' + supplier.id"
                   ><a class="btn btn-primary btn-sm">Edit</a></router-link
                 >
                 <button
                   type="button"
-                  @click="deleteOrder(order.id)"
+                  @click="deleteSupplier(supplier.id)"
                   class="btn btn-danger btn-sm"
                 >
                   Delete
@@ -59,38 +51,45 @@
 export default {
   data() {
     return {
-      isLoading: null,
+      id: 4,
+      error: null,
+      isLoading: false,
     };
   },
-  created() {
-    this.loadOrders();
-  },
   computed: {
-    orders() {
-      return this.$store.getters.orders;
+    suppliers() {
+      return this.$store.getters.suppliers;
+    },
+    productEditLink() {
+      return "/products/edit/" + this.id;
     },
   },
+  created() {
+    this.loadSuppliers();
+  },
   methods: {
-    async loadOrders() {
+    async loadSuppliers() {
       try {
-        await this.$store.dispatch("loadOrders").catch((error) => {
-          this.error = error;
-        });
+        this.$store
+          .dispatch("loadSuppliers")
+          .catch((error) => {
+            this.error = error;
+          });
       } catch (error) {
         this.error = error.message || "Unable to Load Suppliers";
       }
     },
-    async deleteOrder(order_id) {
+    async deleteSupplier(supplier_id) {
       var r = confirm("Confirm delete!");
       if (r == false) {
         return;
       }
       this.$store
-        .dispatch("deleteOrder", {
-          id: order_id,
+        .dispatch("deleteSupplier", {
+          id: supplier_id,
         })
         .then((_) => {
-          this.loadOrders();
+          this.loadSuppliers();
         })
         .catch((error) => {
           this.error = error;

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
+use App\Order;
+use App\Product;
+use App\OrderDetail;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class OrdersController extends Controller
 {
@@ -14,7 +17,12 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::orderBy('order_number', 'DESC')->select('order_number','id')
+        ->with('products')->get();
+
+        return response()->json([
+            'orders' => $orders,   
+        ], 200); 
     }
 
     /**
@@ -25,7 +33,31 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $latestOrder_id = Order::orderBy('created_at','DESC')->first()->id;
+        $newid = null;
+        if(is_null($latestOrder_id)) {
+            $newid = 1;
+        } else {
+            $newid = $latestOrder_id + 1;
+        }
+
+        $order_number = '#'.str_pad($newid, 8, "0", STR_PAD_LEFT);
+
+        $order = Order::create([
+            'order_number' => $order_number
+        ]);
+
+        foreach($request->order_products as $id) {
+            if (Product::where('id', $id)->exists()) {
+                OrderDetail::create([
+                    'order_id' => $order->id,
+                    'product_id' => $id
+                ]);
+            }
+        }
+        return response()->json([
+            'message' => 'success',
+        ], 200); 
     }
 
     /**
@@ -48,7 +80,26 @@ class OrdersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order = Order::find($id);
+
+        if (empty($order)) {
+            return response()->json([
+                'message' => 'Not found'
+            ], 404);
+        }
+
+        $confirmed_existing_products = [];
+        foreach($request->order_products as $id) {
+            if (Product::where('id', $id)->exists()) {
+                array_push($confirmed_existing_products, $id);   
+            }
+        }
+
+        $order->products()->sync($confirmed_existing_products);
+
+        return response()->json([
+            'message' => 'Updated',   
+        ], 200); 
     }
 
     /**
@@ -59,6 +110,18 @@ class OrdersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::find($id);
+
+        if (empty($order)) {
+            return response()->json([
+                'message' => 'Not found'
+            ], 404);
+        }
+
+        $order->delete();
+
+        return response()->json([
+            'message' => 'Deleted',   
+        ], 200);
     }
 }
