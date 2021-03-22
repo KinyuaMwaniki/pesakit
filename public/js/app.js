@@ -2210,14 +2210,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   computed: {
     products: function products() {
-      return this.$store.getters.products;
+      return this.$store.getters.all_products;
     }
   },
   created: function created() {
-    this.loadProducts();
+    this.loadAllProducts();
   },
   methods: {
-    loadProducts: function loadProducts() {
+    loadAllProducts: function loadAllProducts() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -2227,7 +2227,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return _this.$store.dispatch("loadProducts");
+                return _this.$store.dispatch("loadAllProducts");
 
               case 3:
                 _context.next = 8;
@@ -2355,17 +2355,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 //
 //
@@ -2445,35 +2445,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   created: function created() {
     this.setUpForm();
-    this.loadProducts();
+    this.loadAllProducts();
   },
   computed: {
     products: function products() {
-      return this.$store.getters.products;
+      return this.$store.getters.all_products;
     }
   },
   methods: {
-    setUpForm: function setUpForm() {
-      var that = this;
-      var selected = this.$store.getters.orders.filter(function (order) {
-        return order.id == that.id;
-      });
-
-      var _iterator = _createForOfIteratorHelper(selected[0].products),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var product = _step.value;
-          this.form.order_products.push(product);
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-    },
-    loadProducts: function loadProducts() {
+    loadAllProducts: function loadAllProducts() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -2483,7 +2463,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return _this.$store.dispatch("loadProducts");
+                return _this.$store.dispatch("loadAllProducts");
 
               case 3:
                 _context.next = 8;
@@ -2501,6 +2481,26 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           }
         }, _callee, null, [[0, 5]]);
       }))();
+    },
+    setUpForm: function setUpForm() {
+      var that = this;
+      var selected = this.$store.getters.all_orders.filter(function (order) {
+        return order.id == that.id;
+      });
+
+      var _iterator = _createForOfIteratorHelper(selected[0].products),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var product = _step.value;
+          this.form.order_products.push(product);
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
     },
     addProduct: function addProduct() {
       this.error = null;
@@ -2685,7 +2685,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   created: function created() {
-    this.loadOrders(); // console.log(this.$store.getters.orders);
+    this.loadOrders();
+    this.loadAllOrders();
   },
   computed: {
     orders: function orders() {
@@ -2729,75 +2730,106 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, null, [[1, 6]]);
       }))();
     },
-    getResults: function getResults() {
-      var _arguments2 = arguments,
-          _this2 = this;
+    loadAllOrders: function loadAllOrders() {
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var page;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                page = _arguments2.length > 0 && _arguments2[0] !== undefined ? _arguments2[0] : 1;
-                _context2.prev = 1;
-                _context2.next = 4;
-                return _this2.$store.dispatch("loadOrders", {
-                  page: page
-                })["catch"](function (error) {
+                _context2.prev = 0;
+                _context2.next = 3;
+                return _this2.$store.dispatch("loadAllOrders")["catch"](function (error) {
                   _this2.error = error;
                 });
 
-              case 4:
-                _context2.next = 9;
+              case 3:
+                _context2.next = 8;
                 break;
 
-              case 6:
-                _context2.prev = 6;
-                _context2.t0 = _context2["catch"](1);
+              case 5:
+                _context2.prev = 5;
+                _context2.t0 = _context2["catch"](0);
                 _this2.error = _context2.t0.message || "Unable to Load Suppliers";
 
-              case 9:
+              case 8:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[1, 6]]);
+        }, _callee2, null, [[0, 5]]);
       }))();
     },
-    deleteOrder: function deleteOrder(order_id) {
-      var _this3 = this;
+    getResults: function getResults() {
+      var _arguments2 = arguments,
+          _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var r;
+        var page;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                r = confirm("Confirm delete!");
-
-                if (!(r == false)) {
-                  _context3.next = 3;
-                  break;
-                }
-
-                return _context3.abrupt("return");
-
-              case 3:
-                _this3.$store.dispatch("deleteOrder", {
-                  id: order_id
-                }).then(function (_) {
-                  _this3.loadOrders();
+                page = _arguments2.length > 0 && _arguments2[0] !== undefined ? _arguments2[0] : 1;
+                _context3.prev = 1;
+                _context3.next = 4;
+                return _this3.$store.dispatch("loadOrders", {
+                  page: page
                 })["catch"](function (error) {
                   _this3.error = error;
                 });
 
               case 4:
+                _context3.next = 9;
+                break;
+
+              case 6:
+                _context3.prev = 6;
+                _context3.t0 = _context3["catch"](1);
+                _this3.error = _context3.t0.message || "Unable to Load Suppliers";
+
+              case 9:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3);
+        }, _callee3, null, [[1, 6]]);
+      }))();
+    },
+    deleteOrder: function deleteOrder(order_id) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var r;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                r = confirm("Confirm delete!");
+
+                if (!(r == false)) {
+                  _context4.next = 3;
+                  break;
+                }
+
+                return _context4.abrupt("return");
+
+              case 3:
+                _this4.$store.dispatch("deleteOrder", {
+                  id: order_id
+                }).then(function (_) {
+                  _this4.loadOrders();
+                })["catch"](function (error) {
+                  _this4.error = error;
+                });
+
+              case 4:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
       }))();
     }
   }
@@ -61530,6 +61562,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee5);
     }))();
   },
+  loadAllOrders: function loadAllOrders(context) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+      var submit_method, uri;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              submit_method = "GET";
+              uri = "/api/v1/all-orders";
+              axios.defaults.headers.common["Authorization"] = "Bearer " + context.getters.token;
+              axios({
+                method: submit_method,
+                url: uri
+              }).then(function (response) {
+                if (response.status === 200) {
+                  context.commit("setAllOrders", response.data.orders);
+                }
+              })["catch"](function (err) {
+                var error = new Error(err || "Failed to Fetch");
+                throw error;
+              });
+
+            case 4:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }))();
+  },
   createOrder: function createOrder(context, payload) {
     axios.defaults.headers.common["Authorization"] = "Bearer " + context.getters.token;
     var submit_method = "POST";
@@ -61613,6 +61675,9 @@ __webpack_require__.r(__webpack_exports__);
   orders: function orders(state) {
     return state.orders;
   },
+  all_orders: function all_orders(state) {
+    return state.all_orders;
+  },
   loggedIn: function loggedIn(state) {
     return state.token != null;
   },
@@ -61665,7 +61730,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       products: {},
       suppliers: {},
       all_suppliers: [],
-      all_products: []
+      all_products: [],
+      all_orders: []
     };
   },
   mutations: _mutations_js__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -61705,6 +61771,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   setOrders: function setOrders(state, payload) {
     state.orders = payload;
+  },
+  setAllOrders: function setAllOrders(state, payload) {
+    state.all_orders = payload;
   }
 });
 

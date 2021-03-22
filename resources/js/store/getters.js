@@ -2,6 +2,9 @@ export default {
     orders(state) {
         return state.orders;
     },
+    all_orders(state) {
+        return state.all_orders;
+    },
     loggedIn(state) {
         return state.token != null;
     },

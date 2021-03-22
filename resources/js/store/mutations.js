@@ -19,5 +19,8 @@ export default {
     },
     setOrders(state, payload) {
         state.orders = payload;
+    },
+    setAllOrders(state, payload) {
+        state.all_orders = payload;
     }
 };

@@ -15,7 +15,8 @@ export const store = new Vuex.Store({
             products: {},
             suppliers: {},
             all_suppliers: [],
-            all_products: [] 
+            all_products: [],
+            all_orders: [] 
         };
     },
     mutations,

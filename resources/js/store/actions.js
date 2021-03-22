@@ -312,6 +312,24 @@ export default {
                 throw error;
             });
     },
+    async loadAllOrders(context) {
+        let submit_method = "GET";
+        let uri = "/api/v1/all-orders";
+
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + context.getters.token;
+
+        axios({ method: submit_method, url: uri })
+            .then(response => {
+                if (response.status === 200) {
+                    context.commit("setAllOrders", response.data.orders);
+                }
+            })
+            .catch(function(err) {
+                const error = new Error(err || "Failed to Fetch");
+                throw error;
+            });
+    },
     createOrder(context, payload) {
         axios.defaults.headers.common["Authorization"] =
             "Bearer " + context.getters.token;

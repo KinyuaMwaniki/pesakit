@@ -124,4 +124,13 @@ class OrdersController extends Controller
             'message' => 'Deleted',   
         ], 200);
     }
+    public function allOrders()
+    {
+        $orders = Order::orderBy('order_number', 'DESC')->select('order_number','id')
+        ->with('products')->get();
+
+        return response()->json([
+            'orders' => $orders,   
+        ], 200); 
+    }
 }

@@ -68,7 +68,7 @@ export default {
   },
   created() {
     this.loadOrders();
-    // console.log(this.$store.getters.orders);
+    this.loadAllOrders();
   },
   computed: {
     orders() {
@@ -81,6 +81,15 @@ export default {
         await this.$store.dispatch("loadOrders", {
           page: page
         }).catch((error) => {
+          this.error = error;
+        });
+      } catch (error) {
+        this.error = error.message || "Unable to Load Suppliers";
+      }
+    },
+    async loadAllOrders() {
+      try {
+        await this.$store.dispatch("loadAllOrders").catch((error) => {
           this.error = error;
         });
       } catch (error) {

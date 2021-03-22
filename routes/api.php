@@ -26,6 +26,7 @@ Route::group(
         Route::get('all-suppliers', 'SuppliersController@allSuppliers');
         Route::apiResource('order-details', 'OrderDetailsController');
         Route::apiResource('orders', 'OrdersController');
+        Route::get('all-orders', 'OrdersController@allOrders');
     }
 );
 
