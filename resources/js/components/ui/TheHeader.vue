@@ -11,6 +11,14 @@
       >
       <router-link
         v-if="isLoggedIn"
+        to="/dashboard"
+        tag="li"
+        active-class="current"
+        exact
+        ><a>Dashboard</a></router-link
+      >
+      <router-link
+        v-if="isLoggedIn"
         to="/orders"
         tag="li"
         active-class="current"

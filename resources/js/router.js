@@ -1,5 +1,7 @@
 import UserAuth from "./components/auth/UserAuth.vue";
 
+import DashBoard from "./components/ui/Dashboard.vue";
+
 import OrdersList from "./components/orders/OrdersList.vue";
 import CreateOrder from "./components/orders/CreateOrder.vue";
 import EditOrder from './components/orders/EditOrder.vue';
@@ -20,6 +22,13 @@ const routes = [
         component: UserAuth,
         meta: {
             requiresVisitor: true
+        }
+    },
+    {
+        path: "/dashboard",
+        component: DashBoard,
+        meta: {
+            requiresAuth: true
         }
     },
     {
