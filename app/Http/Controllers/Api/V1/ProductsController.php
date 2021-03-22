@@ -148,5 +148,14 @@ class ProductsController extends Controller
             'products' => $products,   
         ], 200); 
     }
+    public function ProductQuantities()
+    {
+        $products = Product::select('name', 'quantity')
+        ->get();
+
+        return response()->json([
+            'products' => $products,   
+        ], 200); 
+    }
   
 }

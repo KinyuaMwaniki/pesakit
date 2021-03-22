@@ -22,5 +22,15 @@ export default {
     },
     all_suppliers(state) {
         return state.all_suppliers;
+    },
+    ordersTotal(state) {
+        return state.all_orders.length;
+    },
+    productsTotal(state) {
+        return state.all_products.length;
+    },
+    suppliersTotal(state) {
+        return state.all_suppliers.length;
     }
+
 };

@@ -20,6 +20,7 @@ Route::middleware('auth:api')->post('/logout', 'AuthController@logout');
 Route::group(
     ['prefix' => '/v1', 'namespace' => 'Api\V1', 'middleware' => ['auth:api']], function () {
         Route::apiResource('orders', 'OrdersController');
+        Route::get('products/quantities', 'ProductsController@productQuantities');
         Route::apiResource('products', 'ProductsController');
         Route::get('all-products', 'ProductsController@allProducts');
         Route::apiResource('suppliers', 'SuppliersController');

@@ -396,5 +396,27 @@ export default {
                     reject("Unable to Delete. Please try again");
                 });
         });
+    },
+    getProdQty(context) {
+        let submit_method = "GET";
+        let uri = "/api/v1/products/quantities";
+
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + context.getters.token;
+
+        return new Promise((resolve, reject) => {
+            axios({ method: submit_method, url: uri })
+                .then(response => {
+                    if (response.status == 200) {
+                        resolve(response);
+                    }
+                    if (response.status == 400) {
+                        reject("Not Found");
+                    }
+                })
+                .catch(function(error) {
+                    reject("Unable to Delete. Please try again");
+                });
+        });
     }
 };
