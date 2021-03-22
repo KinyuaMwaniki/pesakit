@@ -1,8 +1,8 @@
 ## Installation
 
-- git clone https://github.com/wizag-ke/MobiSaleWeb.git
-- cd MobiSaleWeb
-- composer install --ignore-platform-reqs
+- git clone https://github.com/KinyuaMwaniki/orders.git 
+- cd orders
+- composer install
 - npm install
 - npm run dev
 - cp .env.example .env
