@@ -22,7 +22,14 @@
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.phone }}</td>
-            <td>{{ user.isAdmin === 1 ? 'Administrator' : 'Normal User' }}</td>
+            <td>{{ user.isAdmin === 1 ? "Administrator" : "Normal User" }}</td>
+            <td>
+              <div class="btn-group">
+                <router-link :to="'/users/show/' + user.id"
+                  ><a class="btn btn-primary btn-sm">View</a></router-link
+                >
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>

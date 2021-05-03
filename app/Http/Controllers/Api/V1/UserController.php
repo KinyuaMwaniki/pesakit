@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Http\Resources\UserCollection;
 
 class UserController extends Controller
@@ -38,7 +39,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id); 
+        return response()->json(new UserResource($user));
     }
 
     /**

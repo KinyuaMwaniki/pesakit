@@ -18,29 +18,18 @@
         ><a>My Details</a></router-link
       >
       <router-link
-        v-if="isLoggedIn"
+        v-if="isLoggedIn && userType === 1"
         to="/users"
         tag="li"
         active-class="current"
         exact
         ><a>All Users</a></router-link
       >
-      <router-link
-        v-if="isLoggedIn"
-        to="/orders"
-        tag="li"
-        active-class="current"
-        exact
-        ><a>Orders</a></router-link
-      >
-      <router-link
-        v-if="isLoggedIn"
-        to="/logout"
-        tag="li"
-        active-class="current"
-        exact
-        ><a>Logout</a></router-link
-      >
+      <li>
+        <router-link v-if="isLoggedIn" to="/logout" active-class="current" exact
+          ><a>Logout</a></router-link
+        >
+      </li>
     </ul>
   </nav>
 </template>
@@ -50,6 +39,9 @@ export default {
   computed: {
     isLoggedIn() {
       return this.$store.getters.loggedIn;
+    },
+    userType() {
+      return this.$store.getters.userType;
     },
   },
 };
