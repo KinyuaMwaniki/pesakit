@@ -35,3 +35,5 @@ PASSPORT_CLIENT_SECRET=VszY3G4AN9CqSao7tFIzf2T6ecCgpDNp (replace with client sec
 
 - php artisan config:clear
 - sudo chmod 777 -R storage
+
+Admin: U => admin@pesakit.test, P => password
