@@ -18,10 +18,12 @@ DB_PASSWORD=your-db-password
 
 - php artisan migrate --seed
 - php artisan passport:install (Take note of the password grant client id and secret)
+- Set up your server
 - In .env fill the following variables with the details above
 
-PASSPORT_LOGIN_ENDPOINT="http://your-domain.test/oauth/token" (replace with your localhost name after you have set up your server)
+PASSPORT_LOGIN_ENDPOINT="http://your-domain.test/oauth/token" (replace 'your-domain.test' with your localhost name after you have set up your server)
 PASSPORT_CLIENT_ID=4 (replace with client id above)
 PASSPORT_CLIENT_SECRET=VszY3G4AN9CqSao7tFIzf2T6ecCgpDNp (replace with client secret above)
 
 - php artisan config:clear
+- sudo chmod 777 -R storage

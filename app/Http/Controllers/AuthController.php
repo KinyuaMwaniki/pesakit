@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -23,14 +24,6 @@ class AuthController extends Controller
         if($validator->fails()){
             return response()->json($validator->errors(), 400);
         }
-
-        // return Http::retry(2, 100)->post(config('services.passport.login_endpoint'), [
-        //     'grant_type' => 'password',
-        //     'client_id' => config('services.passport.client_id'),
-        //     'client_secret' => config('services.passport.client_secret'), 
-        //     'username' => $request->username,
-        //     'password' => $request->password,
-        // ])->throw()->json();
 
         try{
             $request_token = Request::create(config('services.passport.login_endpoint'), 'POST', array(
@@ -56,6 +49,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
+            'phone' => 'required',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -68,6 +62,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'phone' => $request->phone
         ]);
     }
 
@@ -78,5 +73,11 @@ class AuthController extends Controller
         });
 
         return response()->json('Logged out successfully', 200);
+    }
+
+    public function getUserDetails()
+    {
+        $user = request()->user();
+        return response()->json(new UserResource($user));
     }
 }

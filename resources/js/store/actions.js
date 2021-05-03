@@ -12,6 +12,7 @@ export default {
                         response.data.access_token
                     );
                     context.commit("retrieveToken", response.data.access_token);
+                    // context.dispatch('getUserDetails');
                     resolve(response);
                 })
                 .catch(function(error) {
@@ -64,7 +65,7 @@ export default {
                 });
         });
     },
-    signup(_, payload) {
+    signup(context, payload) {
         let submit_method = "POST";
         let uri = "/api/register";
         let submit_data = payload;
@@ -72,6 +73,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios({ method: submit_method, url: uri, data: submit_data })
                 .then(response => {
+                    // context.dispatch('getUserDetails');
                     resolve(response);
                 })
                 .catch(function(error) {
@@ -90,43 +92,210 @@ export default {
         });
     },
 
-    async loadProducts(context, payload) {
+    getUserDetails(context) {
         let submit_method = "GET";
-        let uri = "/api/v1/products?page=" + payload.page;
+        let uri = "/api/user-details";
 
         axios.defaults.headers.common["Authorization"] =
             "Bearer " + context.getters.token;
 
-        axios({ method: submit_method, url: uri })
-            .then(response => {
-                if (response.status === 200) {
-                    context.commit("setProducts", response.data.products);
-                }
-            })
-            .catch(function(err) {
-                const error = new Error(err || "Failed to Fetch");
-                throw error;
-            });
+
+        console.log(1);
+
+        return new Promise((resolve, reject) => {
+            axios({ method: submit_method, url: uri })
+                .then(response => {
+                    console.log(2);
+                    context.commit('loadUserInfo', response.data);
+                    resolve(response);
+                })
+                .catch(function(error) {
+                    if (error.response.data.errors) {
+                        let validation_errors = [];
+                        let validation_messages = [];
+                        for (const key in error.response.data.errors) {
+                            validation_errors.push(
+                                error.response.data.errors[key]
+                            );
+                        }
+                        validation_errors.forEach(error =>
+                            error.forEach(single =>
+                                validation_messages.push(single)
+                            )
+                        );
+                        reject(validation_messages);
+                    }
+                    reject(error);
+                });
+        });
     },
 
-    async loadAllProducts(context) {
+    loadAllUsers(context) {
         let submit_method = "GET";
-        let uri = "/api/v1/all-products";
+        let uri = "/api/v1/users";
 
         axios.defaults.headers.common["Authorization"] =
             "Bearer " + context.getters.token;
 
-        axios({ method: submit_method, url: uri })
-            .then(response => {
-                if (response.status === 200) {
-                    context.commit("setAllProducts", response.data.products);
-                }
-            })
-            .catch(function(err) {
-                const error = new Error(err || "Failed to Fetch");
-                throw error;
-            });
+        return new Promise((resolve, reject) => {
+            axios({ method: submit_method, url: uri })
+                .then(response => {
+                    console.log(response.data);
+                    context.commit('loadUsers', response.data);
+                    resolve(response);
+                })
+                .catch(function(error) {
+                    if (error.response.data.errors) {
+                        let validation_errors = [];
+                        let validation_messages = [];
+                        for (const key in error.response.data.errors) {
+                            validation_errors.push(
+                                error.response.data.errors[key]
+                            );
+                        }
+                        validation_errors.forEach(error =>
+                            error.forEach(single =>
+                                validation_messages.push(single)
+                            )
+                        );
+                        reject(validation_messages);
+                    }
+                    reject(error);
+                });
+        });
     },
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     addProduct(context, payload) {
         axios.defaults.headers.common["Authorization"] =

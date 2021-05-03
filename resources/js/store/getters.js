@@ -6,6 +6,7 @@ export default {
         return state.all_orders;
     },
     loggedIn(state) {
+        // console.log("Geeter logged in", state.token)
         return state.token != null;
     },
     token(state) {
@@ -31,6 +32,18 @@ export default {
     },
     suppliersTotal(state) {
         return state.all_suppliers.length;
+    },
+    userInfo(state) {
+        return state.user;
+    },
+    userType(state) {
+        return state.user.isAdmin;
+    },
+    users(state) {
+        return state.users;
+    },
+    sampleGetter(state) {
+        return 1;
     }
 
 };

@@ -22,5 +22,11 @@ export default {
     },
     setAllOrders(state, payload) {
         state.all_orders = payload;
+    },
+    loadUserInfo(state, payload) {
+        state.user = payload;
+    },
+    loadUsers(state, payload) {
+        state.users = payload;
     }
 };

@@ -12,11 +12,8 @@ export const store = new Vuex.Store({
         return {
             token: localStorage.getItem("access_token") || null,
             orders: {}, 
-            products: {},
-            suppliers: {},
-            all_suppliers: [],
-            all_products: [],
-            all_orders: [] 
+            user: {},
+            users: [],
         };
     },
     mutations,

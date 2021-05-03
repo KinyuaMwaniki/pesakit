@@ -11,11 +11,19 @@
       >
       <router-link
         v-if="isLoggedIn"
-        to="/dashboard"
+        to="/my-details"
         tag="li"
         active-class="current"
         exact
-        ><a>Dashboard</a></router-link
+        ><a>My Details</a></router-link
+      >
+      <router-link
+        v-if="isLoggedIn"
+        to="/users"
+        tag="li"
+        active-class="current"
+        exact
+        ><a>All Users</a></router-link
       >
       <router-link
         v-if="isLoggedIn"
@@ -24,22 +32,6 @@
         active-class="current"
         exact
         ><a>Orders</a></router-link
-      >
-      <router-link
-        v-if="isLoggedIn"
-        to="/products"
-        tag="li"
-        active-class="current"
-        exact
-        ><a>Products</a></router-link
-      >
-      <router-link
-        v-if="isLoggedIn"
-        to="/suppliers"
-        tag="li"
-        active-class="current"
-        exact
-        ><a>Suppliers</a></router-link
       >
       <router-link
         v-if="isLoggedIn"

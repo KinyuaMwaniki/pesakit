@@ -26,6 +26,16 @@
                 v-model="email"
               />
             </div>
+            <div class="mb-3" v-show="mode === 'signup'">
+              <label for="phone" class="form-label">Phone</label>
+              <input
+                type="text"
+                class="form-control"
+                id="phone"
+                aria-describedby="PhoneNumber"
+                v-model="phone"
+              />
+            </div>
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
               <input
@@ -58,6 +68,7 @@ export default {
       mode: "login",
       email: null,
       password: null,
+      phone: null,
       name: null,
     };
   },
@@ -84,40 +95,46 @@ export default {
       }
     },
     async submitForm() {
-      this.error = null
+      console.log("Login");
+      this.error = null;
       if (
         this.email === null ||
         !this.email.includes("@") ||
         this.password === null ||
-        (this.mode === "signup" && this.name === null)
+        (this.mode === "signup" && (this.name === null || this.phone === null))
       ) {
         this.error =
           "Please enter valid email and ensure all fields are filled";
         return;
       }
-
       try {
         if (this.mode === "login") {
-          await this.$store.dispatch("login", {
-            username: this.email,
-            password: this.password,
-          }).then(response => {
-            this.$router.replace('/dashboard');
-          });
+          await this.$store
+            .dispatch("login", {
+              username: this.email,
+              password: this.password,
+            })
+            .then((response) => {
+              this.$router.replace("/my-details");
+            });
         } else {
-          await this.$store.dispatch("signup", {
-            name: this.name,
-            email: this.email,
-            password: this.password,
-          }).then(response => {
-            console.log("Created")
-            this.mode = 'login';
-          });
+          await this.$store
+            .dispatch("signup", {
+              name: this.name,
+              email: this.email,
+              password: this.password,
+              phone: this.phone,
+            })
+            .then((response) => {
+              console.log("Created");
+              this.mode = "login";
+            });
         }
       } catch (err) {
         console.log("error");
         console.log(err);
-        this.error = err.message || "Failed to authenticater, Please check credentials";
+        this.error =
+          err.message || "Failed to authenticate, Please check credentials";
       }
     },
   },
