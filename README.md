@@ -1,6 +1,6 @@
 ## Installation
 
-- git clone https://github.com/KinyuaMwaniki/orders.git 
+- git clone https://github.com/KinyuaMwaniki/pesakit
 - cd orders
 - composer install (if it fails run composer install --ignore-platform-reqs)
 - npm install
