@@ -1,8 +1,8 @@
 ## Installation
 
 - git clone https://github.com/KinyuaMwaniki/pesakit
-- cd orders
-- composer install (if it fails run composer install --ignore-platform-reqs)
+- cd pesakit
+- composer install
 - npm install
 - npm run dev
 - cp .env.example .env
